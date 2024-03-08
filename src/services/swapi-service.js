@@ -1,5 +1,5 @@
 export default class SwapiService {
-  _apiBase = "https://swapi.dev/api";
+  _apiBase = `https://swapi.py4e.com/api`;
 
   async getResource(url) {
     const res = await fetch(`${this._apiBase}${url}`);
@@ -37,8 +37,7 @@ export default class SwapiService {
   }
 }
 
-const swapi = new SwapiService();
-
-swapi.getPlanet(3).then((p) => {
-  console.log(p.name);
-});
+// const swapi = new SwapiService();
+// swapi.getPlanet(3).then((p) => {
+//   console.log(p.name);
+// });
