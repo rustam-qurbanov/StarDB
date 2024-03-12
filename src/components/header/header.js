@@ -8,8 +8,8 @@ const Header = () => {
       <h3>
         <a href="#">Star DB</a>
       </h3>
-      <ul className="d-flex">
-        <li>
+      <ul className="d-flex ">
+        <li className="list-group-item">
           <a href="#">People</a>
         </li>
         <li>
