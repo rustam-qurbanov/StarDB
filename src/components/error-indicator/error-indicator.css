@@ -5,6 +5,7 @@
   align-items: center;
   /* color: #c78f22; */
   color: rgb(222, 4, 4);
+  margin: 1rem;
 }
 
 .error-indicator img {

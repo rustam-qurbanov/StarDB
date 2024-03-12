@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 
 import "./person-details.css";
+
 import SwapiService from "../../services/swapi-service";
 import ErrorButton from "../error-button";
+import Spinner from "../spinner";
+import ErrorIndicator from "../error-indicator";
 
 export default class PersonDetails extends Component {
   swapiService = new SwapiService();
 
   state = {
     person: null,
+    // loading: true,
   };
 
   componentDidMount() {
@@ -20,6 +24,21 @@ export default class PersonDetails extends Component {
       this.updatePerson();
     }
   }
+
+  onPersonLoaded = (person) => {
+    this.setState({
+      person,
+      loading: false,
+      error: false,
+    });
+  };
+
+  onError = (err) => {
+    this.setState({
+      error: true,
+      loading: false,
+    });
+  };
 
   updatePerson() {
     const { personId } = this.props;
@@ -33,7 +52,7 @@ export default class PersonDetails extends Component {
   }
 
   render() {
-    const { person } = this.state;
+    const { person, loading, error } = this.state;
 
     if (!person) {
       return (
@@ -43,10 +62,31 @@ export default class PersonDetails extends Component {
       );
     }
 
-    const { id, name, gender, birthYear, eyeColor } = person;
+    const hasData = !(loading || error);
+
+    const errorMessage = error ? <ErrorIndicator /> : null;
+    const spinner = loading ? <Spinner /> : null;
+    const content = hasData ? <PersonView person={person} /> : null;
+
+
     return (
-      <div className="person-details card">
-        <img
+      <div className="person-details card ">
+        {errorMessage}
+        {spinner}
+        {content}
+      </div>
+    );
+  }
+}
+
+
+const PersonView = ({ person }) => {
+
+  const { id, name, gender, birthYear, eyeColor } = person;
+  
+  return (
+    <React.Fragment>
+      <img
           className="person-image"
           src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
           alt="person-img"
@@ -70,10 +110,6 @@ export default class PersonDetails extends Component {
           </ul>
           <ErrorButton />
         </div>
-      </div>
-    );
-  }
+    </React.Fragment>
+  )
 }
-
-
-

@@ -9,7 +9,7 @@ import './people-page.css';
 export default class PeoplePage extends Component {
 
   state = {
-    selectedPerson: null,
+    selectedPerson: 3,
     hasError: false
   };
 
