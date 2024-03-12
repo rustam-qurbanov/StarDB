@@ -39,13 +39,13 @@ export default class App extends Component {
 
     return (
       <div className="container stardb-app">
-        
+
         <Header />
         { planet }
 
         <div className="row mb2 button-row ">
           <button
-            className="toggle-planet btn btn-primary btn-lg "
+            className="toggle-planet btn btn-primary  "
             onClick={this.toggleRandomPlanet}>
             Random Planet
           </button>
