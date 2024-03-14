@@ -1,31 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
-import ErrorIndicator from '../error-indicator/error-indicator';
+import ItemList from "../item-list/item-list";
+import PersonDetails from "../person-details/person-details";
+import ErrorIndicator from "../error-indicator/error-indicator";
 
-import './people-page.css';
+import "./people-page.css";
+import SwapiService from "../../services/swapi-service";
 
 export default class PeoplePage extends Component {
+  swapiService = new SwapiService();
 
   state = {
     selectedPerson: 3,
-    hasError: false
+    hasError: false,
   };
 
   componentDidCatch(error, info) {
-
     this.setState({
-      hasError: true
+      hasError: true,
     });
   }
 
   onPersonSelected = (selectedPerson) => {
     this.setState({ selectedPerson });
   };
+  // componentDidMount() {
+  //   this.swapiService.getAllPeople().then((itemList) => {
+  //     console.log(itemList, "itemlist getAllPeople");
+  //   });
+  // }
 
   render() {
-
     if (this.state.hasError) {
       return <ErrorIndicator />;
     }
@@ -33,7 +38,10 @@ export default class PeoplePage extends Component {
     return (
       <div className="row mb2">
         <div className="col-md-6">
-          <ItemList onItemSelected={this.onPersonSelected} />
+          <ItemList
+            onItemSelected={this.onPersonSelected}
+            getData={this.swapiService.getAllPeople}
+          />
         </div>
         <div className="col-md-6">
           <PersonDetails personId={this.state.selectedPerson} />
