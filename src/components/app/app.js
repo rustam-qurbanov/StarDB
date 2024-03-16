@@ -31,10 +31,6 @@ export default class App extends Component {
     this.setState({ hasError: true });
   }
 
-  // onPersonSelected = (selectedPerson) => {
-  //   this.setState({ selectedPerson });
-  // };
-
   render() {
     if (this.state.hasError) {
       return <ErrorIndicator />;
@@ -58,8 +54,6 @@ export default class App extends Component {
         </div>
 
         <PeoplePage />
-
-
       </div>
     );
   }
