@@ -26,10 +26,13 @@ export default class ItemDetails extends Component {
   }
 
   onItemLoaded = (item) => {
+    const { getImageUrl } = this.props;
+
     this.setState({
       item,
       loading: false,
       error: false,
+      image: getImageUrl(item)
     });
   };
 
@@ -41,23 +44,16 @@ export default class ItemDetails extends Component {
   };
 
   updateItem() {
-    const { itemId } = this.props;
+    const { itemId, getData } = this.props;
     if (!itemId) {
       return;
     }
 
-    // this.swapiService.getPerson(personId).then((person) => {
-    //   this.setState({ person });
-    // });
-
-    this.swapiService
-      .getPerson(itemId)
-      .then(this.onItemLoaded)
-      .catch(this.onError);
+    getData(itemId).then(this.onItemLoaded).catch(this.onError);
   }
 
   render() {
-    const { item, loading, error } = this.state;
+    const { item, loading, error, image } = this.state;
 
     if (!item) {
       return (
@@ -71,7 +67,7 @@ export default class ItemDetails extends Component {
 
     const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = hasData ? <ItemView item={item} /> : null;
+    const content = hasData ? <ItemView item={item} image={image} /> : null;
 
     return (
       <div className="item-details card ">
@@ -83,14 +79,15 @@ export default class ItemDetails extends Component {
   }
 }
 
-const ItemView = ({ item }) => {
-  const { id, name, gender, birthYear, eyeColor } = item;
-
+const ItemView = ({ item, image }) => {
+  
+  const { name, gender, birthYear, eyeColor } = item;
   return (
     <React.Fragment>
       <img
         className="item-image"
-        src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+        // src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+        src={image}
         alt="item-img"
       />
 
