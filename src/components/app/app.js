@@ -12,6 +12,7 @@ import SwapiService from "../../services/swapi-service";
 import ErrorBoundry from "../error-boundry";
 import Row from "../row";
 import ItemDetails from "../item-details";
+import Record from "../record";
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -19,7 +20,6 @@ export default class App extends Component {
   state = {
     showRandomPlanet: true,
     hasError: false,
-    // selectedPerson: 3,
   };
 
   toggleRandomPlanet = () => {
@@ -45,11 +45,11 @@ export default class App extends Component {
       this.swapiService;
 
     const personDetails = (
-      <ItemDetails
-        itemId={11}
-        getData={getPerson}
-        getImageUrl={getPersonImage}
-      />
+      <ItemDetails itemId={11} getData={getPerson} getImageUrl={getPersonImage}>
+        <Record field="gender" label="Gender:" />
+        <Record field="birthYear" label="Birth Year:" />
+        <Record field="eyeColor" label="Eye Color:" />
+      </ItemDetails>
     );
 
     const starshipDetails = (
@@ -57,7 +57,11 @@ export default class App extends Component {
         itemId={9}
         getData={getStarship}
         getImageUrl={getStarshipImage}
-      />
+      >
+        <Record field="model" label="Model" />
+        <Record field="length" label="Length" />
+        <Record field="costInCredits" label="Cost" />
+      </ItemDetails>
     );
 
     return (

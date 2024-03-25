@@ -7,6 +7,16 @@ import ErrorButton from "../error-button";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 
+// const Record = ({ item, field, label }) => {
+//   return (
+//     <li className="list-group-item">
+//       <span className="term">{label}</span>
+//       <span>{item[field]}</span>
+//     </li>
+//   );
+// };
+// export { Record };
+
 export default class ItemDetails extends Component {
   swapiService = new SwapiService();
 
@@ -32,7 +42,7 @@ export default class ItemDetails extends Component {
       item,
       loading: false,
       error: false,
-      image: getImageUrl(item)
+      image: getImageUrl(item),
     });
   };
 
@@ -54,6 +64,7 @@ export default class ItemDetails extends Component {
 
   render() {
     const { item, loading, error, image } = this.state;
+    const { children } = this.props;
 
     if (!item) {
       return (
@@ -67,7 +78,9 @@ export default class ItemDetails extends Component {
 
     const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = hasData ? <ItemView item={item} image={image} /> : null;
+    const content = hasData ? (
+      <ItemView item={item} image={image} childrens={children} />
+    ) : null;
 
     return (
       <div className="item-details card ">
@@ -79,9 +92,9 @@ export default class ItemDetails extends Component {
   }
 }
 
-const ItemView = ({ item, image }) => {
-  
-  const { name, gender, birthYear, eyeColor } = item;
+const ItemView = ({ item, image, childrens }) => {
+  const { name } = item;
+
   return (
     <React.Fragment>
       <img
@@ -94,7 +107,7 @@ const ItemView = ({ item, image }) => {
       <div className="card-body">
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">
+          {/* <li className="list-group-item">
             <span className="term">Gender:</span>
             <span>{gender}</span>
           </li>
@@ -105,7 +118,11 @@ const ItemView = ({ item, image }) => {
           <li className="list-group-item">
             <span className="term">Eye Color:</span>
             <span>{eyeColor}</span>
-          </li>
+          </li> */}
+
+          {childrens.map((children, index) => {
+            return React.cloneElement(children, { item, key: index });
+          })}
         </ul>
         <ErrorButton />
       </div>
