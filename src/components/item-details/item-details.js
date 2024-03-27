@@ -55,6 +55,7 @@ export default class ItemDetails extends Component {
 
   updateItem() {
     const { itemId, getData } = this.props;
+
     if (!itemId) {
       return;
     }
@@ -79,7 +80,7 @@ export default class ItemDetails extends Component {
     const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loading ? <Spinner /> : null;
     const content = hasData ? (
-      <ItemView item={item} image={image} childrens={children} />
+      <ItemView item={item} image={image} children={children} />
     ) : null;
 
     return (
@@ -92,7 +93,7 @@ export default class ItemDetails extends Component {
   }
 }
 
-const ItemView = ({ item, image, childrens }) => {
+const ItemView = ({ item, image, children }) => {
   const { name } = item;
 
   return (
@@ -120,8 +121,8 @@ const ItemView = ({ item, image, childrens }) => {
             <span>{eyeColor}</span>
           </li> */}
 
-          {childrens.map((children, index) => {
-            return React.cloneElement(children, { item, key: index });
+          {children.map((child, idx) => {
+            return React.cloneElement(child, { item, key: idx });
           })}
         </ul>
         <ErrorButton />

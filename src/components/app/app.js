@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import Header from "../header";
 // import RandomPlanet from "../random-planet";
 // import ErrorButton from "../error-button";
-import ErrorIndicator from "../error-indicator";
 
 // import PeoplePage from "../people-page";
 
@@ -13,13 +12,13 @@ import ErrorBoundry from "../error-boundry";
 import Row from "../row";
 import ItemDetails from "../item-details";
 import Record from "../record";
+import ItemList from "../item-list/item-list";
 
 export default class App extends Component {
   swapiService = new SwapiService();
 
   state = {
     showRandomPlanet: true,
-    hasError: false,
   };
 
   toggleRandomPlanet = () => {
@@ -30,19 +29,17 @@ export default class App extends Component {
     });
   };
 
-  componentDidCatch() {
-    this.setState({ hasError: true });
-  }
-
   render() {
-    if (this.state.hasError) {
-      return <ErrorIndicator />;
-    }
-
     // const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
-    const { getPerson, getStarship, getPersonImage, getStarshipImage } =
-      this.swapiService;
+    const {
+      getPerson,
+      getStarship,
+      getPersonImage,
+      getStarshipImage,
+      getAllPeople,
+      getAllPlanets,
+    } = this.swapiService;
 
     const personDetails = (
       <ItemDetails itemId={11} getData={getPerson} getImageUrl={getPersonImage}>
@@ -50,6 +47,12 @@ export default class App extends Component {
         <Record field="birthYear" label="Birth Year:" />
         <Record field="eyeColor" label="Eye Color:" />
       </ItemDetails>
+    );
+
+    const personList = (
+      <ItemList getData={getAllPeople} onItemSelected={() => {}}>
+        {({ name }) => <span>{name}</span>}
+      </ItemList>
     );
 
     const starshipDetails = (
@@ -80,7 +83,14 @@ export default class App extends Component {
           </div>
           <PeoplePage /> */}
 
-          <Row left={personDetails} right={starshipDetails} />
+          <ItemList getData={getAllPlanets} onItemSelected={() => {}}>
+            {({ name }) => <span>{name}</span>}
+          </ItemList>
+          
+          <Row left={personList} right={starshipDetails} />
+          <Row left={personList} right={personDetails} />
+
+          {/* <Row left={personDetails} right={starshipDetails} /> */}
         </div>
       </ErrorBoundry>
     );

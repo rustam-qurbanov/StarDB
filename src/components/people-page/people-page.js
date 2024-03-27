@@ -26,7 +26,7 @@ export default class PeoplePage extends Component {
         onItemSelected={this.onItemSelected}
         getData={this.swapiService.getAllPeople}
       >
-        {(i) => `${i.name} - ( ${i.birthYear} )`}
+        {(i) => `${i.name}`}
       </ItemList>
     );
 
