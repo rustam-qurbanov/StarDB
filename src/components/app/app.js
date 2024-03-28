@@ -40,39 +40,6 @@ export default class App extends Component {
   render() {
     // const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
-    const {
-      getPerson,
-      getStarship,
-      getPersonImage,
-      getStarshipImage,
-      getAllPeople,
-      getAllPlanets,
-    } = this.swapiService;
-
-    const personDetails = (
-      <ItemDetails itemId={11} getData={getPerson} getImageUrl={getPersonImage}>
-        <Record field="gender" label="Gender:" />
-        <Record field="birthYear" label="Birth Year:" />
-        <Record field="eyeColor" label="Eye Color:" />
-      </ItemDetails>
-    );
-
-    const personList = (
-      <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
-    );
-
-    const starshipDetails = (
-      <ItemDetails
-        itemId={9}
-        getData={getStarship}
-        getImageUrl={getStarshipImage}
-      >
-        <Record field="model" label="Model" />
-        <Record field="length" label="Length" />
-        <Record field="costInCredits" label="Cost" />
-      </ItemDetails>
-    );
-
     return (
       <ErrorBoundry>
         <div className="container stardb-app">
@@ -90,11 +57,13 @@ export default class App extends Component {
           <PeoplePage /> */}
 
           <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
-          <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
-          <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+          <PersonDetails itemId={11} />
 
-          {/* <Row left={personList} right={personDetails} />
-          <Row left={personList} right={starshipDetails} /> */}
+          <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
+          <PlanetDetails itemId={4} />
+
+          <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+          <StarshipDetails itemId={9} />
 
           {/* <Row left={personDetails} right={starshipDetails} /> */}
         </div>
