@@ -13,6 +13,14 @@ import Row from "../row";
 import ItemDetails from "../item-details";
 import Record from "../record";
 import ItemList from "../item-list/item-list";
+import {
+  PersonList,
+  PlanetList,
+  StarshipList,
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+} from "../sw-components";
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -50,9 +58,7 @@ export default class App extends Component {
     );
 
     const personList = (
-      <ItemList getData={getAllPeople} onItemSelected={() => {}}>
-        {({ name }) => <span>{name}</span>}
-      </ItemList>
+      <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
     );
 
     const starshipDetails = (
@@ -83,12 +89,12 @@ export default class App extends Component {
           </div>
           <PeoplePage /> */}
 
-          <ItemList getData={getAllPlanets} onItemSelected={() => {}}>
-            {({ name }) => <span>{name}</span>}
-          </ItemList>
-          
-          <Row left={personList} right={starshipDetails} />
-          <Row left={personList} right={personDetails} />
+          <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
+          <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
+          <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+
+          {/* <Row left={personList} right={personDetails} />
+          <Row left={personList} right={starshipDetails} /> */}
 
           {/* <Row left={personDetails} right={starshipDetails} /> */}
         </div>
