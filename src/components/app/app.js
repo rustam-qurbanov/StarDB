@@ -10,9 +10,6 @@ import "./app.css";
 import SwapiService from "../../services/swapi-service";
 import ErrorBoundry from "../error-boundry";
 import Row from "../row";
-import ItemDetails from "../item-details";
-import Record from "../record";
-import ItemList from "../item-list/item-list";
 import {
   PersonList,
   PlanetList,
@@ -56,16 +53,20 @@ export default class App extends Component {
           </div>
           <PeoplePage /> */}
 
-          <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
+          {/* <Row left={<PersonList />} right={<PersonDetails itemId={11} />} />
+          <Row left={<PlanetList />} right={<PlanetDetails itemId={4} />} />
+          <Row left={<StarshipList />} right={<StarshipDetails itemId={9} />} /> */}
+
+          <PersonList />
           <PersonDetails itemId={11} />
 
-          <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
+          <PlanetList />
           <PlanetDetails itemId={4} />
 
-          <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+          <StarshipList />
           <StarshipDetails itemId={9} />
 
-          {/* <Row left={personDetails} right={starshipDetails} /> */}
+
         </div>
       </ErrorBoundry>
     );
