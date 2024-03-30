@@ -13,11 +13,11 @@ const withChildFunc = (Wrapped, func) => {
   };
 };
 const renderName = ({ name }) => <span>{name}</span>;
-const renderModelAndName = ({ model, name }) => (
-  <span>
-    {name} ({model})
-  </span>
-);
+// const renderModelAndName = ({ model, name }) => (
+//   <span>
+//     {name} ({model})
+//   </span>
+// );
 
 // const ListWithChildren = withChildFunc(ItemList, renderName);
 
@@ -26,7 +26,7 @@ const PersonList = withData(withChildFunc(ItemList, renderName), getAllPeople);
 const PlanetList = withData(withChildFunc(ItemList, renderName), getAllPlanets);
 
 const StarshipList = withData(
-  withChildFunc(ItemList, renderModelAndName),
+  withChildFunc(ItemList, renderName),
   getAllStarships
 );
 
