@@ -9,7 +9,7 @@ import Header from "../header";
 import "./app.css";
 import SwapiService from "../../services/swapi-service";
 import ErrorBoundry from "../error-boundry";
-import Row from "../row";
+// import Row from "../row";
 import { SwapiServiceProvider } from "../swapi-service-context";
 // import DummySwapiService from "../../services/dummy-swapi-service";
 
